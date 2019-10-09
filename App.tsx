@@ -4,35 +4,42 @@ import { StyleSheet, Text, View, Platform } from "react-native";
 import { Button } from "react-native-elements";
 import * as Permissions from "expo-permissions";
 import { Camera } from "expo-camera";
+import detectText from ".//vision";
 
 export default function App() {
   const [hasCameraPermission, setCameraPermission] = useState(null);
-  let cameraRef = null;
-  const DESIRED_RATIO = "16:9";
+  const [cameraRatio, setRatio] = useState("4:3");
+  const DESIRED_RATIO = "4:3";
 
   useEffect(() => {
-    console.log(hasCameraPermission);
     (async () => {
       await Permissions.askAsync(Permissions.CAMERA);
       setCameraPermission(true);
     })();
   });
 
-  const takePicture = () => {
-    console.log("take picture");
+  const takePicture = async () => {
+    if (this.cameraRef) {
+      let photo = await this.cameraRef.takePictureAsync({
+        base64: true
+      });
+
+      detectText(photo.uri);
+    }
   };
 
   const prepareRatio = async () => {
     if (Platform.OS === "android" && this.cameraRef) {
-      const ratios = await this.cam.getSupportedRatiosAsync();
+      const ratios = await this.cameraRef.getSupportedRatiosAsync();
 
+      // console.log(ratios)
       // See if the current device has your desired ratio, otherwise get the maximum supported one
       // Usually the last element of "ratios" is the maximum supported ratio
       const ratio =
         ratios.find(ratio => ratio === DESIRED_RATIO) ||
         ratios[ratios.length - 1];
 
-      this.setState({ ratio });
+      setRatio(ratio);
     }
   };
 
@@ -41,10 +48,11 @@ export default function App() {
       <Text style={styles.header}>Lotto Winner</Text>
       {hasCameraPermission && (
         <Camera
-          ref={this.cameraRef}
+          ref={ref => (this.cameraRef = ref)}
           style={styles.camera}
           type={Camera.Constants.Type.back}
           onCameraReady={prepareRatio}
+          ratio={cameraRatio}
         ></Camera>
       )}
       {!hasCameraPermission && <Text>Access to camera has been denied.</Text>}
