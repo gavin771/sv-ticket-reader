@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Container,
   Header as NativeHeader,
   Left,
   Body,
@@ -12,17 +11,15 @@ import {
 export default class Header extends Component {
   render() {
     return (
-      <Container>
-        <NativeHeader>
-          <Left>
-            <Thumbnail small source={require("../../assets/svicon.png")} />
-          </Left>
-          <Body>
-            <Title>SV Ticket Reader</Title>
-          </Body>
-          <Right />
-        </NativeHeader>
-      </Container>
+      <NativeHeader style={{ backgroundColor: "#111" }}>
+        <Left>
+          <Thumbnail small source={require("../../assets/svicon.png")} />
+        </Left>
+        <Body>
+          <Title style={{ color: "#fff" }}>SV Ticket Reader</Title>
+        </Body>
+        <Right />
+      </NativeHeader>
     );
   }
 }
