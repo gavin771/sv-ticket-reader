@@ -34,7 +34,7 @@ const MainNavigator = createBottomTabNavigator(
       },
       labelStyle: {
         fontSize: 15,
-        bottom: 20
+        bottom: 15
       },
       tabStyle: {
         borderRightWidth: 1,
