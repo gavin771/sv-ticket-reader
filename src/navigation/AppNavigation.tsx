@@ -1,13 +1,13 @@
 import { createAppContainer } from "react-navigation";
 import { createBottomTabNavigator } from "react-navigation-tabs";
 import CurrentNumbers from "../screens/CurrentNumbers";
-import Home from "../screens/Home";
+import HomeNavigation from "./HomeNavigation";
 import Settings from "../screens/Settings";
 
 const MainNavigator = createBottomTabNavigator(
   {
     Home: {
-      screen: Home,
+      screen: HomeNavigation,
       navigationOptions: ({ navigation }) => ({
         title: `Home`
       })

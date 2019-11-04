@@ -2,10 +2,15 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 export default class Settings extends React.Component {
+  static navigationOptions = ({ navigation }) => {
+    return {
+      title: `${navigation.getParam("game", "Game")}`
+    };
+  };
   render() {
     return (
       <View style={styles.container}>
-        <Text>Settings Screen</Text>
+        <Text>Home Game Screen</Text>
       </View>
     );
   }

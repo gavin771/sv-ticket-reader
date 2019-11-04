@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 
 export default class CurrentNumbers extends React.Component {

@@ -1,4 +1,4 @@
-import React  from "react";
+import React from "react";
 import { StyleSheet } from "react-native";
 import { Container, Content } from "native-base";
 
@@ -11,7 +11,7 @@ export default class Home extends React.Component {
       <Container>
         <Header />
         <Content style={styles.container}>
-          <GameList />
+          <GameList navigate={this.props.navigation.navigate} />
         </Content>
       </Container>
     );
