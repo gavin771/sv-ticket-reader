@@ -17,12 +17,10 @@ export default createStackNavigator(
     }
   },
   {
-    navigationOptions: {
+    defaultNavigationOptions: {
       headerTitleStyle: {
-        ...Platform.select({
-          ios: { fontFamily: "Arial" },
-          android: { fontFamily: "Roboto" }
-        })
+        fontFamily: "Roboto",
+        fontSize: 18
       }
     }
   }
