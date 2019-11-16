@@ -11,7 +11,9 @@ import {
 export default class Header extends Component {
   render() {
     return (
-      <NativeHeader style={{ backgroundColor: "#111" }}>
+      <NativeHeader
+        style={{ backgroundColor: "#111"}}
+      >
         <Left>
           <Thumbnail small source={require("../../assets/svicon.png")} />
         </Left>

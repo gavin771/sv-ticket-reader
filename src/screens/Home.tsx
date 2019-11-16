@@ -3,17 +3,16 @@ import { StyleSheet } from "react-native";
 import { Container, Content } from "native-base";
 
 import GameList from "../components/GameList";
-import Header from "../components/Header";
+import Layout from "../components/Layout";
 
 export default class Home extends React.Component {
   render() {
     return (
-      <Container>
-        <Header />
+      <Layout>
         <Content style={styles.container}>
           <GameList navigate={this.props.navigation.navigate} />
         </Content>
-      </Container>
+      </Layout>
     );
   }
 }
