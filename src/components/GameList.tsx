@@ -8,59 +8,16 @@ import {
   Right,
   Left,
   Thumbnail,
-  Body,
-  Button
+  Body
 } from "native-base";
 
-const games = [
-  {
-    name: "Cash Pot",
-    image: require("../../assets/cashpot.png"),
-    notes: "Draws everyday at 8:30AM, 10:30AM, 1PM, 3PM, 5PM & 8:25PM"
-  },
-  {
-    name: "Pick 2",
-    image: require("../../assets/pick2.png"),
-    notes: "Coming Soon"
-  },
-  {
-    name: "Pick 3",
-    image: require("../../assets/pick3.png"),
-    notes: "Coming Soon"
-  },
-  {
-    name: "Pick 4",
-    image: require("../../assets/pick4.png"),
-    notes: "Coming Soon"
-  },
-  {
-    name: "Lucky 5",
-    image: require("../../assets/lucky5.png"),
-    notes: "Coming Soon"
-  },
-  {
-    name: "Dollaz",
-    image: require("../../assets/dollaz.png"),
-    notes: "Coming Soon"
-  },
-  {
-    name: "Top Draw",
-    image: require("../../assets/topdraw.png"),
-    notes: "Coming Soon"
-  },
-  {
-    name: "Lotto",
-    image: require("../../assets/lotto.png"),
-    notes: "Draws on Wednesday & Saturday at 8:25pm"
-  },
-  {
-    name: "Super Lotto",
-    image: require("../../assets/slotto.png"),
-    notes: "Coming Soon"
-  }
-];
+import games from "../utils/games";
 
-export default class GameList extends Component {
+type GameListProps = {
+  navigate: (string, object) => void;
+};
+
+export default class GameList extends Component<GameListProps> {
   render() {
     const { navigate } = this.props;
     return (

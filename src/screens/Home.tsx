@@ -5,7 +5,13 @@ import { Container, Content } from "native-base";
 import GameList from "../components/GameList";
 import Layout from "../components/Layout";
 
-export default class Home extends React.Component {
+type HomeProps = {
+  navigation: {
+    navigate: (string, object) => void;
+  };
+};
+
+export default class Home extends React.Component<HomeProps> {
   render() {
     return (
       <Layout>
