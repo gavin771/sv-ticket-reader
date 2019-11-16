@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, View } from "react-native";
 import { Row, Grid } from "react-native-easy-grid";
-import { Button, Segment, Content, Text } from "native-base";
+import { Button, Tab, Tabs, Content, Text } from "native-base";
+
 import ScanTicket from "../components/ScanTicket";
 import EnterNumbers from "../components/EnterNumbers";
 
@@ -13,16 +14,6 @@ export default class HomeGame extends React.Component {
     return {
       title: `${navigation.getParam("game", "Game")}`
     };
-  };
-
-  setMode = activePage => () => this.setState({ activePage });
-
-  renderMode = () => {
-    if (this.state.activePage === 1) {
-      return <ScanTicket />;
-    } else {
-      return <EnterNumbers />;
-    }
   };
 
   render() {
@@ -37,35 +28,35 @@ export default class HomeGame extends React.Component {
           </Content>
         </Row>
         <Row size={8}>
-          <Segment style={styles.segment}>
-            <Button
-              first
-              active={this.state.activePage === 1}
-              onPress={this.setMode(1)}
-              style={
-                this.state.activePage === 1
-                  ? styles.activeSegment
-                  : styles.inactiveSegment
-              }
+          <Tabs
+            tabBarUnderlineStyle={{
+              borderBottomWidth: 3,
+              borderBottomColor: "#008053"
+            }}
+            tabContainerStyle={{
+              elevation: 0,
+              borderBottomWidth: 3
+            }}
+          >
+            <Tab
+              heading="Scan Ticket"
+              activeTabStyle={styles.activeTabStyle}
+              activeTextStyle={styles.activeTabTextStyle}
+              tabStyle={styles.inactiveTabStyle}
+              textStyle={styles.inactiveTabTextStyle}
             >
-              <Text>Scan Ticket</Text>
-            </Button>
-            <Button
-              last
-              active={this.state.activePage === 2}
-              onPress={this.setMode(2)}
-              style={
-                this.state.activePage === 2
-                  ? styles.activeSegment
-                  : styles.inactiveSegment
-              }
+              <ScanTicket />
+            </Tab>
+            <Tab
+              heading="Enter Your Numbers"
+              activeTabStyle={styles.activeTabStyle}
+              activeTextStyle={styles.activeTabTextStyle}
+              tabStyle={styles.inactiveTabStyle}
+              textStyle={styles.inactiveTabTextStyle}
             >
-              <Text>Enter Numbers</Text>
-            </Button>
-          </Segment>
-          <View>
-          <Content padder>{this.renderMode()}</Content>
-          </View>
+              <EnterNumbers />
+            </Tab>
+          </Tabs>
         </Row>
       </Grid>
     );
@@ -76,19 +67,17 @@ const styles = StyleSheet.create({
   bodyText: {
     fontSize: 14
   },
-  segment: {
+  activeTabStyle: {
+    backgroundColor: "#fff",
+    borderBottomWidth: 3
+  },
+  activeTabTextStyle: {
+    color: "#008053"
+  },
+  inactiveTabStyle: {
     backgroundColor: "#fff"
   },
-  activeSegment: {
-    fontSize: 14,
-    color: "#111",
-    borderBottomColor: "blue",
-    borderBottomWidth: 2
-  },
-  inactiveSegment: {
-    fontSize: 14,
-    borderBottomColor: "blue",
-    borderBottomWidth: 2,
-    color: "#eee"
+  inactiveTabTextStyle: {
+    color: "#c5c5c5"
   }
 });
