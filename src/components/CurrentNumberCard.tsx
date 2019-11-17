@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { ImageSourcePropType } from "react-native";
+import { StyleSheet, ImageSourcePropType } from "react-native";
 import {
   Card,
   CardItem,
@@ -10,7 +10,7 @@ import {
   Body,
   Right
 } from "native-base";
-import { fromUnixTime, format, parse, parseISO } from "date-fns";
+import { fromUnixTime, format } from "date-fns";
 
 type CurrentNumberCardProps = {
   game: {
@@ -27,7 +27,8 @@ export default class CurrentNumberCard extends Component<
 > {
   state = {
     winningNumbers: null,
-    drawDate: null
+    drawDate: null,
+    drawName: null
   };
 
   componentDidMount() {
@@ -37,19 +38,21 @@ export default class CurrentNumberCard extends Component<
         let parsedNumbers = null;
         if (responseJson) {
           const timestampDate = Number(Object.keys(responseJson)[0]) / 1000;
+          const responseData = responseJson[Object.keys(responseJson)[0]];
           const formattedDate = format(
             fromUnixTime(timestampDate),
             "do MMMM, yyyy"
           );
-          console.log(responseJson);
+          const gameName = Object.keys(responseData)[0];
+          if (gameName !== "latest-draw") {
+            this.setState({ drawName: gameName.toUpperCase() });
+          }
 
-          this.setState(
-            {
-              winningNumbers: parsedNumbers,
-              drawDate: formattedDate
-            },
-            function() {}
-          );
+          parsedNumbers = responseData[gameName];
+          this.setState({
+            winningNumbers: parsedNumbers,
+            drawDate: formattedDate
+          });
         }
       })
       .catch(error => {
@@ -65,6 +68,11 @@ export default class CurrentNumberCard extends Component<
             <Thumbnail source={this.props.game.image} />
             <Body>
               <Text>{this.props.game.name}</Text>
+              {this.state.drawName && (
+                <Text note style={{ fontSize: 12 }}>
+                  Draw Name: {this.state.drawName}
+                </Text>
+              )}
               <Text note style={{ fontSize: 12 }}>
                 Last Draw Date:{" "}
                 {this.state.drawDate ? this.state.drawDate : "No draw found"}
@@ -73,18 +81,28 @@ export default class CurrentNumberCard extends Component<
           </Left>
         </CardItem>
         <CardItem cardBody style={{ padding: 20 }}>
-          <Text style={{ fontSize: 13 }}>
-            Winning Number/s: {this.state.winningNumbers || "No numbers found"}
-          </Text>
+          {this.state.winningNumbers ? (
+            <Text style={styles.numbers}>
+              {this.state.winningNumbers.map((num, idx) => {
+                if (idx < this.state.winningNumbers.length - 1) {
+                  return " " + num + " -";
+                } else {
+                  return num;
+                }
+              })}
+            </Text>
+          ) : (
+            <Text>No numbers found</Text>
+          )}
         </CardItem>
         <CardItem footer>
           <Left>
-            <Button transparent>
+            <Button success>
               <Text>Check Ticket</Text>
             </Button>
           </Left>
-          <Right>
-            <Button transparent>
+          <Right style={{ width: "100%" }}>
+            <Button success>
               <Text>More Results</Text>
             </Button>
           </Right>
@@ -93,3 +111,12 @@ export default class CurrentNumberCard extends Component<
     );
   }
 }
+
+const styles = StyleSheet.create({
+  numbers: {
+    color: "#008053",
+    width: "100%",
+    fontSize: 21,
+    textAlign: "center"
+  }
+});
