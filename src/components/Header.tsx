@@ -12,13 +12,16 @@ export default class Header extends Component {
   render() {
     return (
       <NativeHeader
-        style={{ backgroundColor: "#111"}}
+        style={{
+          backgroundColor: "#fff",
+          elevation: 3
+        }}
       >
         <Left>
           <Thumbnail small source={require("../../assets/svicon.png")} />
         </Left>
         <Body>
-          <Title style={{ color: "#fff" }}>SV Ticket Reader</Title>
+          <Title style={{ color: "#111" }}>SV Ticket Reader</Title>
         </Body>
         <Right />
       </NativeHeader>
