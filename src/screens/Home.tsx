@@ -1,6 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { Container, Content } from "native-base";
+import { Content } from "native-base";
 
 import GameList from "../components/GameList";
 import Layout from "../components/Layout";
@@ -15,17 +15,10 @@ export default class Home extends React.Component<HomeProps> {
   render() {
     return (
       <Layout>
-        <Content style={styles.container}>
+        <Content style={{ padding: 10 }}>
           <GameList navigate={this.props.navigation.navigate} />
         </Content>
       </Layout>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff"
-  }
-});
