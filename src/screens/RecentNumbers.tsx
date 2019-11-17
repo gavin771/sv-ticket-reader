@@ -6,7 +6,7 @@ import Layout from "../components/Layout";
 import CurrentNumberCard from "../components/CurrentNumberCard";
 import games from "../utils/games";
 
-export default class CurrentNumbers extends React.Component {
+export default class RecentNumbers extends React.Component {
   render() {
     return (
       <Layout>
@@ -19,12 +19,3 @@ export default class CurrentNumbers extends React.Component {
     );
   }
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center"
-  }
-});
