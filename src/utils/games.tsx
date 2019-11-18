@@ -19,6 +19,13 @@ export default [
     api: FIREBASE_CASHPOT_API
   },
   {
+    name: "Lotto",
+    shortName: "lotto",
+    image: require("../../assets/lotto.png"),
+    notes: "Draws on Wednesday & Saturday at 8:25pm",
+    api: FIREBASE_LOTTO_API
+  },
+  {
     name: "Pick 2",
     shortName: "pick-2",
     image: require("../../assets/pick2.png"),
@@ -60,13 +67,7 @@ export default [
     notes: "Coming Soon",
     api: FIREBASE_TOPDRAW_API
   },
-  {
-    name: "Lotto",
-    shortName: "lotto",
-    image: require("../../assets/lotto.png"),
-    notes: "Draws on Wednesday & Saturday at 8:25pm",
-    api: FIREBASE_LOTTO_API
-  },
+
   {
     name: "Super Lotto",
     shortName: "super-lotto",

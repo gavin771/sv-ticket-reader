@@ -9,23 +9,18 @@ import { ScannedNumbersContext } from "../context";
 
 export default function HomeGame() {
   const [activePage, setActivePage] = useState(1);
-  const [isScanned, setScanned] = useState(false);
   const [scannedNumbers, setScannedNumbers] = useState(null);
 
   const updateNumberContext = numbers => {
     setScannedNumbers(numbers);
-  };
-  const updateScannedState = isScanned => {
-    setScanned(isScanned);
+    setActivePage(1);
   };
 
   return (
     <ScannedNumbersContext.Provider
       value={{
         numbers: scannedNumbers,
-        isScanned: isScanned,
-        updateNumbers: updateNumberContext,
-        updateScannedState: updateScannedState
+        updateNumbers: updateNumberContext
       }}
     >
       <Grid>
@@ -47,6 +42,8 @@ export default function HomeGame() {
               elevation: 0,
               borderBottomWidth: 3
             }}
+            page={activePage}
+            initialPage={0}
           >
             <Tab
               heading="Scan Ticket"
@@ -56,7 +53,7 @@ export default function HomeGame() {
               textStyle={styles.inactiveTabTextStyle}
             >
               <Content padder>
-                {isScanned ? <EnterNumbers /> : <ScanTicket />}
+                <ScanTicket />
               </Content>
             </Tab>
             <Tab

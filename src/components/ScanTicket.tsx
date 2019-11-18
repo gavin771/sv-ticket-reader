@@ -33,7 +33,7 @@ export default function ScanTicket() {
       // console.log(ticketNumbers);
       if (ticketNumbers) {
         scannedNumbers.updateNumbers(ticketNumbers.symbols);
-        scannedNumbers.updateScannedState(true);
+        // scannedNumbers.updateScannedState(true);
       }
 
       setLoading(false);

@@ -1,5 +1,4 @@
 import React from "react";
-import { StyleSheet } from "react-native";
 import { Content } from "native-base";
 
 import Layout from "../components/Layout";
