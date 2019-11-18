@@ -1,25 +1,35 @@
-import React from "react";
-import { StyleSheet, View } from "react-native";
+import React, { useState } from "react";
+import { StyleSheet } from "react-native";
 import { Row, Grid } from "react-native-easy-grid";
-import { Button, Tab, Tabs, Content, Text } from "native-base";
+import { Tab, Tabs, Content, Text } from "native-base";
 
 import ScanTicket from "../components/ScanTicket";
 import EnterNumbers from "../components/EnterNumbers";
+import { ScannedNumbersContext } from "../context";
 
-export default class HomeGame extends React.Component {
-  state = {
-    activePage: 1
+export default function HomeGame() {
+  const [activePage, setActivePage] = useState(1);
+  const [isScanned, setScanned] = useState(false);
+  const [scannedNumbers, setScannedNumbers] = useState(null);
+
+  const updateNumberContext = numbers => {
+    setScannedNumbers(numbers);
   };
-  static navigationOptions = ({ navigation }) => {
-    return {
-      title: `${navigation.getParam("game", "Game")}`
-    };
+  const updateScannedState = isScanned => {
+    setScanned(isScanned);
   };
 
-  render() {
-    return (
+  return (
+    <ScannedNumbersContext.Provider
+      value={{
+        numbers: scannedNumbers,
+        isScanned: isScanned,
+        updateNumbers: updateNumberContext,
+        updateScannedState: updateScannedState
+      }}
+    >
       <Grid>
-        <Row size={1}>
+        <Row size={1} style={{ padding: 5 }}>
           <Content padder>
             <Text style={styles.bodyText}>
               You can choose to enter your ticket numbers manually or scan your
@@ -45,7 +55,9 @@ export default class HomeGame extends React.Component {
               tabStyle={styles.inactiveTabStyle}
               textStyle={styles.inactiveTabTextStyle}
             >
-              <ScanTicket />
+              <Content padder>
+                {isScanned ? <EnterNumbers /> : <ScanTicket />}
+              </Content>
             </Tab>
             <Tab
               heading="Enter Your Numbers"
@@ -54,14 +66,20 @@ export default class HomeGame extends React.Component {
               tabStyle={styles.inactiveTabStyle}
               textStyle={styles.inactiveTabTextStyle}
             >
-              <EnterNumbers />
+              <Content padder>
+                <EnterNumbers />
+              </Content>
             </Tab>
           </Tabs>
         </Row>
       </Grid>
-    );
-  }
+    </ScannedNumbersContext.Provider>
+  );
 }
+
+HomeGame.navigationOptions = ({ navigation }) => {
+  return { title: `Read ${navigation.getParam("game", "Game")} Ticket` };
+};
 
 const styles = StyleSheet.create({
   bodyText: {
